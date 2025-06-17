@@ -9,18 +9,19 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
+import dev.tarjanyicsanad.fluentio.android.quizzes.ui.QuizScreen
 import dev.tarjanyicsanad.fluentio.android.ui.HomeScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object HomeScreen : NavKey
+data object HomeScreenRoute : NavKey
 
 @Serializable
-data class QuizScreen(val id: Int) : NavKey
+data class QuizScreenRoute(val id: Int) : NavKey
 
 @Composable
 fun RootNavigation(modifier: Modifier = Modifier) {
-    val backStack = rememberNavBackStack(HomeScreen)
+    val backStack = rememberNavBackStack(HomeScreenRoute)
 
     NavDisplay(
         modifier = modifier,
@@ -32,18 +33,25 @@ fun RootNavigation(modifier: Modifier = Modifier) {
         ),
         entryProvider = { key ->
             when (key) {
-                HomeScreen -> {
+                HomeScreenRoute -> {
                     NavEntry(
                         key = key,
                     ) {
-                        HomeScreen()
+                        HomeScreen(
+                            onQuizClick = { id ->
+                                backStack.add(QuizScreenRoute(id = id))
+                            }
+                        )
                     }
                 }
-                is QuizScreen -> {
+                is QuizScreenRoute -> {
                     NavEntry(
                         key = key,
                     ) {
-                        QuizScreen(id = key.id)
+                        QuizScreen(
+                            id = key.id,
+                            onNavigateBack = { backStack.removeLastOrNull() }
+                        )
                     }
                 }
                 else -> throw RuntimeException("Unknown key: $key")
