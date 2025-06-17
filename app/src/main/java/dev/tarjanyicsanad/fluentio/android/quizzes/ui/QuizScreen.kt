@@ -1,5 +1,6 @@
 package dev.tarjanyicsanad.fluentio.android.quizzes.ui
 
+import android.R.attr.text
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,32 +9,42 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun QuizScreen(
-    id: Int,
     onNavigateBack: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: QuizViewModel = koinViewModel(),
 ) {
-    LazyColumn(modifier = modifier.fillMaxSize()) {
-        item {
-            Row {
-                Button(onClick = { onNavigateBack() }) {
-                    Text("Back")
+    val quizState by viewModel.quizState.collectAsState()
+
+    if (quizState.isLoading) {
+        Text("Loading...")
+    } else if (quizState.quiz == null) {
+        Text("No quiz found")
+    } else {
+        LazyColumn(modifier = modifier.fillMaxSize()) {
+            item {
+                Row {
+                    Button(onClick = { onNavigateBack() }) {
+                        Text("Back")
+                    }
+                    Text("Note ${quizState.quiz!!.title}")
                 }
-                Text("Note $id")
+            }
+            items(100) {
+                Text(
+                    text = "Item $it",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                )
             }
         }
-        items(100) {
-            Text(
-                text = "Item $it",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            )
-        }
-
     }
 }

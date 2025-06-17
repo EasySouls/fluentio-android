@@ -12,6 +12,8 @@ import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import dev.tarjanyicsanad.fluentio.android.quizzes.ui.QuizScreen
 import dev.tarjanyicsanad.fluentio.android.ui.HomeScreen
 import kotlinx.serialization.Serializable
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Serializable
 data object HomeScreenRoute : NavKey
@@ -49,7 +51,7 @@ fun RootNavigation(modifier: Modifier = Modifier) {
                         key = key,
                     ) {
                         QuizScreen(
-                            id = key.id,
+                            viewModel = koinViewModel { parametersOf(key.id) },
                             onNavigateBack = { backStack.removeLastOrNull() }
                         )
                     }
