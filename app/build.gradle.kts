@@ -9,6 +9,8 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
     alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.firebase.perf)
 }
 
 
@@ -54,6 +56,9 @@ android {
         compose = true
         buildConfig = true
     }
+    kotlinOptions {
+        freeCompilerArgs = listOf("-XXLanguage:+PropertyParamAnnotationDefaultTargetMode")
+    }
 
     room {
         schemaDirectory("$projectDir/schemas")
@@ -98,6 +103,13 @@ dependencies {
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.identity.googleid)
     implementation(libs.google.fonts)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.perf)
+    implementation(libs.firebase.auth)
 
     implementation(libs.accompanist.permissions)
     implementation(libs.timber)
