@@ -7,6 +7,7 @@ import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
+import androidx.navigation3.ui.DialogSceneStrategy
 import androidx.navigation3.ui.NavDisplay
 import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import dev.tarjanyicsanad.fluentio.android.quizzes.ui.QuizScreen
@@ -29,15 +30,17 @@ fun RootNavigation(modifier: Modifier = Modifier) {
         modifier = modifier,
         backStack = backStack,
         entryDecorators = listOf(
+            rememberSceneSetupNavEntryDecorator(),
             rememberSavedStateNavEntryDecorator(),
             rememberViewModelStoreNavEntryDecorator(),
-            rememberSceneSetupNavEntryDecorator()
         ),
+        sceneStrategy = TwoPaneSceneStrategy(),
         entryProvider = { key ->
             when (key) {
                 HomeScreenRoute -> {
                     NavEntry(
                         key = key,
+                        metadata = TwoPaneScene.twoPane()
                     ) {
                         HomeScreen(
                             onQuizClick = { id ->
@@ -49,6 +52,7 @@ fun RootNavigation(modifier: Modifier = Modifier) {
                 is QuizScreenRoute -> {
                     NavEntry(
                         key = key,
+                        metadata = TwoPaneScene.twoPane()
                     ) {
                         QuizScreen(
                             viewModel = koinViewModel { parametersOf(key.id) },
