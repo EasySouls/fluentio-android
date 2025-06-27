@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "7409ec816a2f3f0137d519a786e2db5e",
+    "identityHash": "aef87875977e2469bbb3535a45bcd6ff",
     "entities": [
       {
         "tableName": "quizzes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`quizId` INTEGER NOT NULL, `authorId` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, PRIMARY KEY(`quizId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`quizId` INTEGER NOT NULL, `title` TEXT NOT NULL, `authorId` TEXT NOT NULL, `description` TEXT, `timestamp` INTEGER NOT NULL, PRIMARY KEY(`quizId`))",
         "fields": [
           {
             "fieldPath": "quizId",
@@ -15,10 +15,21 @@
             "notNull": true
           },
           {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "authorId",
             "columnName": "authorId",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "timestamp",
@@ -103,7 +114,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7409ec816a2f3f0137d519a786e2db5e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aef87875977e2469bbb3535a45bcd6ff')"
     ]
   }
 }

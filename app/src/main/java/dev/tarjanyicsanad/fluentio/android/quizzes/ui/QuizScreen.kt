@@ -1,5 +1,6 @@
 package dev.tarjanyicsanad.fluentio.android.quizzes.ui
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,27 +18,31 @@ fun QuizScreen(
     modifier: Modifier = Modifier,
     quizState: QuizUiState
 ) {
-    if (quizState.isLoading) {
-        Text("Loading...")
-    } else if (quizState.quiz == null) {
-        Text("No quiz found")
-    } else {
-        LazyColumn(modifier = modifier.fillMaxSize()) {
-            item {
-                Row {
-                    Button(onClick = { onNavigateBack() }) {
-                        Text("Back")
+    Box(
+        modifier = modifier.padding(4.dp)
+    ) {
+        if (quizState.isLoading) {
+            Text("Loading...")
+        } else if (quizState.quiz == null) {
+            Text("No quiz found")
+        } else {
+            LazyColumn(modifier = modifier.fillMaxSize()) {
+                item {
+                    Row {
+                        Button(onClick = { onNavigateBack() }) {
+                            Text("Back")
+                        }
+                        Text("Note ${quizState.quiz.title}")
                     }
-                    Text("Note ${quizState.quiz!!.title}")
                 }
-            }
-            items(100) {
-                Text(
-                    text = "Item $it",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                )
+                items(100) {
+                    Text(
+                        text = "Item $it",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    )
+                }
             }
         }
     }
