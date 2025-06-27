@@ -1,4 +1,4 @@
-package dev.tarjanyicsanad.fluentio.android.quizzes.data
+package dev.tarjanyicsanad.fluentio.android.quizzes.domain
 
 data class Answer(
     val id: Int,

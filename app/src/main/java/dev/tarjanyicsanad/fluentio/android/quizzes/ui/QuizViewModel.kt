@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.tarjanyicsanad.fluentio.android.navigation.QuizScreenRoute
-import dev.tarjanyicsanad.fluentio.android.quizzes.data.Quiz
+import dev.tarjanyicsanad.fluentio.android.quizzes.domain.Quiz
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
