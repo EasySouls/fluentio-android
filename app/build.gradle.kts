@@ -10,13 +10,14 @@ plugins {
     alias(libs.plugins.room)
     alias(libs.plugins.google.gms.google.services)
     alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.firebase.perf)
+//    alias(libs.plugins.firebase.perf)
 }
 
 
 kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.fromTarget("11")
+        freeCompilerArgs = listOf("-XXLanguage:+PropertyParamAnnotationDefaultTargetMode")
     }
 }
 
@@ -56,9 +57,6 @@ android {
         compose = true
         buildConfig = true
     }
-    kotlinOptions {
-        freeCompilerArgs = listOf("-XXLanguage:+PropertyParamAnnotationDefaultTargetMode")
-    }
 
     room {
         schemaDirectory("$projectDir/schemas")
@@ -74,8 +72,6 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.material.icons.extended)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -86,6 +82,7 @@ dependencies {
 
     implementation(libs.nav3.runtime)
     implementation(libs.nav3.ui)
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.viewmodel.nav3)
     implementation(libs.kotlinx.serialization.core)
     implementation(libs.kotlinx.serialization.json)
@@ -95,8 +92,10 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
+    implementation(libs.androidx.material3)
     implementation(libs.androidx.compose.material3.windowsizeclass)
     implementation(libs.androidx.material3.adaptive)
+    implementation(libs.androidx.material.icons.extended)
 
     implementation(libs.play.services.location)
     implementation(libs.play.services.auth)
@@ -109,7 +108,7 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.firestore)
-    implementation(libs.firebase.perf)
+//    implementation(libs.firebase.perf)
     implementation(libs.firebase.auth)
 
     implementation(libs.accompanist.permissions)
