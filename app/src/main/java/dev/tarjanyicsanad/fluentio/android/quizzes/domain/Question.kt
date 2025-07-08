@@ -6,7 +6,8 @@ data class Question(
     val questionId: Int,
     val quizId: Int,
     val text: String,
-    val answers: List<Answer>
+    val type: QuestionType,
+    val answers: List<OptionAnswer>
 )
 
 fun QuestionEntity.toModel(): Question {
@@ -14,6 +15,13 @@ fun QuestionEntity.toModel(): Question {
         questionId,
         quizId,
         text,
+        type,
         emptyList()
     )
+}
+
+enum class QuestionType {
+    TRUE_FALSE,
+    MULTIPLE_CHOICE,
+    FREE_TEXT
 }
